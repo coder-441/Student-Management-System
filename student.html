@@ -1,0 +1,307 @@
+<link rel="stylesheet" href="student.css">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+</head>
+<body>
+    <div class="container">
+        <!-- Navigation -->
+        <nav class="navbar">
+            <div class="nav-brand">
+                <i class="fas fa-graduation-cap"></i>
+                <span>EduManage</span>
+            </div>
+            <ul class="nav-menu">
+                <li><a href="#" onclick="showSection('dashboard')" class="nav-link active">Dashboard</a></li>
+                <li><a href="#" onclick="showSection('students')" class="nav-link">Students</a></li>
+                <li><a href="#" onclick="showSection('attendance')" class="nav-link">Attendance</a></li>
+                <li><a href="#" onclick="showSection('grades')" class="nav-link">Grades</a></li>
+                <li><a href="#" onclick="showSection('communication')" class="nav-link">Messages</a></li>
+            </ul>
+        </nav>
+
+        <!-- Dashboard Section -->
+        <section id="dashboard" class="section active">
+            <div class="section-header">
+                <h2><i class="fas fa-tachometer-alt"></i> Dashboard</h2>
+            </div>
+            <div class="stats-grid">
+                <div class="stat-card">
+                    <div class="stat-icon"><i class="fas fa-users"></i></div>
+                    <div class="stat-info">
+                        <h3 id="totalStudents">0</h3>
+                        <p>Total Students</p>
+                    </div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-icon"><i class="fas fa-calendar-check"></i></div>
+                    <div class="stat-info">
+                        <h3 id="attendanceRate">0%</h3>
+                        <p>Attendance Rate</p>
+                    </div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-icon"><i class="fas fa-chart-line"></i></div>
+                    <div class="stat-info">
+                        <h3 id="averageGrade">0</h3>
+                        <p>Average Grade</p>
+                    </div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-icon"><i class="fas fa-envelope"></i></div>
+                    <div class="stat-info">
+                        <h3 id="totalMessages">0</h3>
+                        <p>Messages</p>
+                    </div>
+                </div>
+            </div>
+            <div class="dashboard-content">
+                <div class="recent-activities">
+                    <h3>Recent Activities</h3>
+                    <div id="recentActivities" class="activity-list"></div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Students Section -->
+        <section id="students" class="section">
+            <div class="section-header">
+                <h2><i class="fas fa-users"></i> Student Management</h2>
+                <button class="btn btn-primary" onclick="showStudentModal()">
+                    <i class="fas fa-plus"></i> Add Student
+                </button>
+            </div>
+            <div class="search-bar">
+                <input type="text" id="studentSearch" placeholder="Search students..." onkeyup="searchStudents()">
+                <i class="fas fa-search"></i>
+            </div>
+            <div class="table-container">
+                <table id="studentsTable">
+                    <thead>
+                        <tr>
+                            <th>ID</th>
+                            <th>Name</th>
+                            <th>Email</th>
+                            <th>Phone</th>
+                            <th>Grade</th>
+                            <th>Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody id="studentsTableBody"></tbody>
+                </table>
+            </div>
+        </section>
+
+        <!-- Attendance Section -->
+        <section id="attendance" class="section">
+            <div class="section-header">
+                <h2><i class="fas fa-calendar-check"></i> Attendance Management</h2>
+                <button class="btn btn-primary" onclick="markAttendance()">
+                    <i class="fas fa-check"></i> Mark Attendance
+                </button>
+            </div>
+            <div class="attendance-controls">
+                <input type="date" id="attendanceDate" value="">
+                <select id="attendanceClass">
+                    <option value="">Select Class</option>
+                    <option value="Grade 9">Grade 9</option>
+                    <option value="Grade 10">Grade 10</option>
+                    <option value="Grade 11">Grade 11</option>
+                    <option value="Grade 12">Grade 12</option>
+                </select>
+            </div>
+            <div class="table-container">
+                <table id="attendanceTable">
+                    <thead>
+                        <tr>
+                            <th>Student ID</th>
+                            <th>Name</th>
+                            <th>Date</th>
+                            <th>Status</th>
+                            <th>Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody id="attendanceTableBody"></tbody>
+                </table>
+            </div>
+        </section>
+
+        <!-- Grades Section -->
+        <section id="grades" class="section">
+            <div class="section-header">
+                <h2><i class="fas fa-chart-line"></i> Grade Management</h2>
+                <button class="btn btn-primary" onclick="showGradeModal()">
+                    <i class="fas fa-plus"></i> Add Grade
+                </button>
+            </div>
+            <div class="grade-controls">
+                <select id="gradeSubject">
+                    <option value="">Select Subject</option>
+                    <option value="Mathematics">Mathematics</option>
+                    <option value="Science">Science</option>
+                    <option value="English">English</option>
+                    <option value="History">History</option>
+                    <option value="Geography">Geography</option>
+                </select>
+                <select id="gradeClass">
+                    <option value="">Select Class</option>
+                    <option value="Grade 9">Grade 9</option>
+                    <option value="Grade 10">Grade 10</option>
+                    <option value="Grade 11">Grade 11</option>
+                    <option value="Grade 12">Grade 12</option>
+                </select>
+            </div>
+            <div class="table-container">
+                <table id="gradesTable">
+                    <thead>
+                        <tr>
+                            <th>Student ID</th>
+                            <th>Name</th>
+                            <th>Subject</th>
+                            <th>Grade</th>
+                            <th>Date</th>
+                            <th>Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody id="gradesTableBody"></tbody>
+                </table>
+            </div>
+        </section>
+
+        <!-- Communication Section -->
+        <section id="communication" class="section">
+            <div class="section-header">
+                <h2><i class="fas fa-envelope"></i> Communication Center</h2>
+                <button class="btn btn-primary" onclick="showMessageModal()">
+                    <i class="fas fa-plus"></i> New Message
+                </button>
+            </div>
+            <div class="messages-container">
+                <div class="message-filters">
+                    <button class="filter-btn active" onclick="filterMessages('all')">All</button>
+                    <button class="filter-btn" onclick="filterMessages('students')">Students</button>
+                    <button class="filter-btn" onclick="filterMessages('teachers')">Teachers</button>
+                    <button class="filter-btn" onclick="filterMessages('parents')">Parents</button>
+                </div>
+                <div id="messagesList" class="messages-list"></div>
+            </div>
+        </section>
+    </div>
+
+    <!-- Student Modal -->
+    <div id="studentModal" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3>Add/Edit Student</h3>
+                <span class="close" onclick="closeModal('studentModal')">&times;</span>
+            </div>
+            <form id="studentForm">
+                <input type="hidden" id="studentId">
+                <div class="form-group">
+                    <label for="studentName">Full Name</label>
+                    <input type="text" id="studentName" required>
+                </div>
+                <div class="form-group">
+                    <label for="studentEmail">Email</label>
+                    <input type="email" id="studentEmail" required>
+                </div>
+                <div class="form-group">
+                    <label for="studentPhone">Phone</label>
+                    <input type="tel" id="studentPhone" required>
+                </div>
+                <div class="form-group">
+                    <label for="studentGrade">Grade</label>
+                    <select id="studentGrade" required>
+                        <option value="">Select Grade</option>
+                        <option value="Grade 9">Grade 9</option>
+                        <option value="Grade 10">Grade 10</option>
+                        <option value="Grade 11">Grade 11</option>
+                        <option value="Grade 12">Grade 12</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label for="studentAddress">Address</label>
+                    <textarea id="studentAddress" rows="3"></textarea>
+                </div>
+                <div class="form-actions">
+                    <button type="button" class="btn btn-secondary" onclick="closeModal('studentModal')">Cancel</button>
+                    <button type="submit" class="btn btn-primary">Save Student</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- Grade Modal -->
+    <div id="gradeModal" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3>Add Grade</h3>
+                <span class="close" onclick="closeModal('gradeModal')">&times;</span>
+            </div>
+            <form id="gradeForm">
+                <input type="hidden" id="gradeId">
+                <div class="form-group">
+                    <label for="gradeStudent">Student</label>
+                    <select id="gradeStudent" required></select>
+                </div>
+                <div class="form-group">
+                    <label for="gradeSubjectInput">Subject</label>
+                    <select id="gradeSubjectInput" required>
+                        <option value="">Select Subject</option>
+                        <option value="Mathematics">Mathematics</option>
+                        <option value="Science">Science</option>
+                        <option value="English">English</option>
+                        <option value="History">History</option>
+                        <option value="Geography">Geography</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label for="gradeValue">Grade</label>
+                    <input type="number" id="gradeValue" min="0" max="100" required>
+                </div>
+                <div class="form-group">
+                    <label for="gradeDate">Date</label>
+                    <input type="date" id="gradeDate" required>
+                </div>
+                <div class="form-actions">
+                    <button type="button" class="btn btn-secondary" onclick="closeModal('gradeModal')">Cancel</button>
+                    <button type="submit" class="btn btn-primary">Save Grade</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- Message Modal -->
+    <div id="messageModal" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3>New Message</h3>
+                <span class="close" onclick="closeModal('messageModal')">&times;</span>
+            </div>
+            <form id="messageForm">
+                <div class="form-group">
+                    <label for="messageRecipient">Recipient Type</label>
+                    <select id="messageRecipient" required>
+                        <option value="">Select Recipient</option>
+                        <option value="students">Students</option>
+                        <option value="teachers">Teachers</option>
+                        <option value="parents">Parents</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label for="messageSubject">Subject</label>
+                    <input type="text" id="messageSubject" required>
+                </div>
+                <div class="form-group">
+                    <label for="messageContent">Message</label>
+                    <textarea id="messageContent" rows="5" required></textarea>
+                </div>
+                <div class="form-actions">
+                    <button type="button" class="btn btn-secondary" onclick="closeModal('messageModal')">Cancel</button>
+                    <button type="submit" class="btn btn-primary">Send Message</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <script src="student.js"></script>
+</body>
+</html>
